@@ -1,0 +1,48 @@
+language: bash
+services: docker
+
+env:
+  global:
+    - PROJECT=vw
+    - NAMESPACE=actionml
+    - PUSH_NAMESPACES=actionml
+  matrix:
+    - DFDIR=. FLAVOUR=jni
+
+install:
+  - curl -sSL https://github.com/stackfeed/ci-scripts/raw/master/install.sh | sh -s -- -r v0.2
+
+before_script:
+  - |-
+      export PATH=$PATH:~/ci-scripts
+      export LATESTS=$(curl -sSL "https://raw.githubusercontent.com/${TRAVIS_REPO_SLUG}/master/.latests")
+      export VERSION=$TRAVIS_TAG
+
+      # pick any version from .latests (if we are not releasing)
+      [ -n "$VERSION" ] || VERSION=$(cat .latests | cut -f1 -d' ')
+
+script:
+  - |-
+      docker-build -v $VERSION -f $FLAVOUR -l "$LATESTS" "$NAMESPACE/$PROJECT" \
+        --build-arg version=${VERSION} \
+          -f ${DFDIR}/Dockerfile ./ || exit $?
+
+# deploy containers to hub.docker.com
+after_deploy:
+  - |
+      # Skip if we are not in the push namespace list
+      ( echo "$PUSH_NAMESPACES" | grep -qw "${TRAVIS_REPO_SLUG%/*}" ) || exit 0
+      docker-push -r "^$NAMESPACE/$PROJECT:?.*"
+
+      # update microbadger
+      curl -XPOST "https://hooks.microbadger.com/images/${NAMESPACE}/${PROJECT}/${MICROBADGER_TOKEN}"
+
+deploy:
+  - provider: script
+    script: /bin/true
+    on:
+      tags: true
+      # condition: $TRAVIS_TAG =~ ^[0-9]
+
+after_script:
+  - docker images
