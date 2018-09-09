@@ -1,8 +1,9 @@
 FROM stackfeed/alpine:3.8-glibc
 
 ARG version
-LABEL com.actionml.vwjni.vendor=ActionML \
-      com.actionml.vwjni.version=$version
+LABEL com.actionml.vw.vendor=ActionML \
+      com.actionml.vw.version=$version \
+      com.actionml.vw.flavour=jni
 
 ENV VW_GITURL=https://github.com/JohnLangford/vowpal_wabbit \
     VW_GITREV=$version
