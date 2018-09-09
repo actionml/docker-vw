@@ -34,7 +34,7 @@ RUN set -x && apk add --update --no-cache openjdk8-jre && \
 
 ## Build and install VW (Vowpal Wabbit) library with JNI wrapper
 #
-RUN apk add --no-cache --update zlib boost && \
+RUN apk add --no-cache --update zlib boost boost-program_options && \
     apk add --no-cache --virtual=.deps zlib-dev boost-dev clang git build-base perl && \
     cd /tmp && \
     git clone $VW_GITURL vw && cd vw && git checkout $VW_GITREV && \
