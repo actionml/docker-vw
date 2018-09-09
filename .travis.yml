@@ -18,8 +18,8 @@ before_script:
       export LATESTS=$(curl -sSL "https://raw.githubusercontent.com/${TRAVIS_REPO_SLUG}/master/.latests")
       export VERSION=$TRAVIS_TAG
 
-      # pick master (if we are not releasing)
-      [ -n "$VERSION" ] || VERSION=master
+      # pick any version from .latests (if we are not releasing)
+      [ -n "$VERSION" ] || VERSION=$(cat .latests | cut -f1 -d' ')
 
 script:
   - |-

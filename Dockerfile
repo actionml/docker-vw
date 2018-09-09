@@ -38,6 +38,6 @@ RUN apk add --no-cache --update zlib boost && \
     apk add --no-cache --virtual=.deps zlib-dev boost-dev clang git build-base perl && \
     cd /tmp && \
     git clone $VW_GITURL vw && cd vw && git checkout $VW_GITREV && \
-    make java && cp -r java/target ${JAVA_HOME}/../lib/amd64 && \
+    make java && cp -r java/target ${JAVA_HOME}/../lib/amd64/jni && \
     rm -rf /tmp/* && \
     apk del .deps
