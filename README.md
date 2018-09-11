@@ -4,11 +4,15 @@ Vowpal Wabbit is a machine learning system which pushes the frontier of machine 
 
 ### Container flavours
 
-## JNI flavour
+## Harness flavour
 
-JNI flavour builds **vw**  library for use with Java applications through the [JNI interface](https://en.wikipedia.org/wiki/Java_Native_Interface). This container is based on alpine with glibc support, for details refer to [stackfeed/alpine](https://hub.docker.com/r/stackfeed/alpine/).
+Harness flavour is used as the base container for derived harness "sdk" and "runtime" containers. This flavour bundles _Vowpal Wabbit_ **JNI library**, it's used for Java applications to perform calls via [JNI interface](https://en.wikipedia.org/wiki/Java_Native_Interface). It also comes with:
 
-**OpenJDK8 JRE** is built-in into this container. **Note** that the OpenJDK version customization is not intended functionality, since the actual version is defined by the upstream Alpine Linux version.
+ - **OpenJDK8 JRE** is built-in into this container.
+    **Note** that the OpenJDK version customization is not intended functionality, since the actual version is defined by the upstream Alpine Linux version.
+ - **Python 3.x** runtime in fact the actual version depends on upstream Alpine version.
+
+Note: this container is based on [stackfeed/alpine](https://hub.docker.com/r/stackfeed/alpine/).
 
 ---
 
