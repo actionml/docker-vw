@@ -3,7 +3,7 @@ FROM stackfeed/alpine:3.8-glibc
 ARG version
 LABEL com.actionml.vw.vendor=ActionML \
       com.actionml.vw.version=$version \
-      com.actionml.vw.flavour=jni
+      com.actionml.vw.flavour=harness
 
 ENV VW_GITURL=https://github.com/JohnLangford/vowpal_wabbit \
     VW_GITREV=$version
@@ -25,12 +25,22 @@ RUN { \
   } > /usr/local/bin/docker-java-home \
   && chmod +x /usr/local/bin/docker-java-home
 
+## Install Python3 runtime
+#
+RUN apk add --no-cache --update python3 && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --upgrade pip setuptools && \
+        ln -sf /usr/bin/python3 /usr/bin/python && \
+        ln -sf /usr/bin/python3-config /usr/bin/python-config && \
+        ln -sf /usr/bin/pydoc3 /usr/bin/pydoc && \
+        ln -sf /usr/bin/pip3 /usr/bin/pip && \
+    rm -r /root/.cache
 
 ## Install OpenJDK8 java runtime
 #
 RUN set -x && apk add --update --no-cache openjdk8-jre && \
       [ "$JAVA_HOME" = "$(docker-java-home)" ]
-
 
 ## Build and install VW (Vowpal Wabbit) library with JNI wrapper
 #

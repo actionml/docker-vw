@@ -7,7 +7,7 @@ env:
     - NAMESPACE=actionml
     - PUSH_NAMESPACES=actionml
   matrix:
-    - DFDIR=. FLAVOUR=jni
+    - DFDIR=. FLAVOUR=harness
 
 install:
   - curl -sSL https://github.com/stackfeed/ci-scripts/raw/master/install.sh | sh -s -- -r v0.2
