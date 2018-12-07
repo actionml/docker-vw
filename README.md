@@ -1,18 +1,11 @@
-# Vowpal Wabbit docker container [![Image Version](https://images.microbadger.com/badges/version/actionml/vw.svg)](https://microbadger.com/images/actionml/vw)
+# Harness CI runtime docker image [![Image Version](https://images.microbadger.com/badges/version/actionml/harness-ciruntime.svg)](https://microbadger.com/images/actionml/harness-ciruntime)
 
-Vowpal Wabbit is a machine learning system which pushes the frontier of machine learning with techniques such as online, hashing, allreduce, reductions, learning2search, active, and interactive learning. [http://hunch.net/~vw/](http://hunch.net/~vw/).
+Docker container image used to build [ActionML Harness](https://github.com/actionml/harness) on a CI platform. This image contains the required libraries and tools to perform build.
 
-### Container flavours
+## Important libraries and tools
 
-## Harness flavour
-
-Harness flavour is used as the base container for derived harness "sdk" and "runtime" containers. This flavour bundles _Vowpal Wabbit_ **JNI library**, it's used for Java applications to perform calls via [JNI interface](https://en.wikipedia.org/wiki/Java_Native_Interface). It also comes with:
-
- - **OpenJDK8 JRE** is built-in into this container.
-    **Note** that the OpenJDK version customization is not intended functionality, since the actual version is defined by the upstream Alpine Linux version.
- - **Python 3.x** runtime in fact the actual version depends on upstream Alpine version.
-
-Note: this container is based on [stackfeed/alpine](https://hub.docker.com/r/stackfeed/alpine/).
+- **OpenJDK 8**
+- **Python 3**
 
 ---
 

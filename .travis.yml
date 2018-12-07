@@ -3,11 +3,11 @@ services: docker
 
 env:
   global:
-    - PROJECT=vw
+    - PROJECT=harness-ciruntime
     - NAMESPACE=actionml
     - PUSH_NAMESPACES=actionml
   matrix:
-    - DFDIR=. FLAVOUR=harness
+    - DFDIR=./ FLAVOUR=_
 
 install:
   - curl -sSL https://github.com/stackfeed/ci-scripts/raw/master/install.sh | sh -s -- -r v0.2
