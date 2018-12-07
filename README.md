@@ -6,6 +6,7 @@ Docker container image used to build [ActionML Harness](https://github.com/actio
 
 - **OpenJDK 8**
 - **Python 3**
+- **Scala 2.12.6**
 
 ---
 
