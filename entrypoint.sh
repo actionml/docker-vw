@@ -9,7 +9,7 @@ bold() {
 
 ## SDK_VERBOSE output
 #
-if [ "$SDK_VERBOSE" = "yes" ]; then
+if ( echo "yes y true enabled" | grep -sqwi "${SDK_VERBOSE}" ); then
   echo -n "=> " && mvn --version # maven makes the first line bold
   echo -n "=> " && scalac -version | bold
   echo -n "=> " && python --version | bold
